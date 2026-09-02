@@ -1,62 +1,35 @@
 # Roadmap
 
-Una fase, un concepto. No se abre la siguiente si la anterior no se puede explicar en voz alta.
+La ruta detallada (criterio de cierre, qué queda fuera, producto final) está en [PATH.md](PATH.md).
 
-## Fase 0 — Cimiento (actual)
+Una etapa, un concepto. No se abre la siguiente si la anterior no se puede explicar en voz alta.
 
-Next.js + TypeScript + Tailwind + healthcheck.
+## Dónde estamos
 
-Criterio de cierre: las 5 preguntas de `docs/EXPLAIN.md`.
+| Etapa | Nombre | Estado |
+| --- | --- | --- |
+| 0 | Cimiento (Next + healthcheck) | actual |
+| 1 | Datos (Supabase Postgres + Drizzle) | siguiente |
+| 2 | Identidad (registro / sesión) | pendiente |
+| 3 | CV estructurado + editor | pendiente |
+| 4 | Ofertas y estados | pendiente |
+| 5 | Motor IA (proveedor + skills + runner) | pendiente |
+| 6 | Skill `match_offer` | pendiente |
+| 7 | Skill `optimize_cv` | pendiente |
+| 8 | Skill `rewrite_section` | pendiente |
+| 9 | PDF | pendiente |
+| 10 | Stripe + cuota | pendiente |
+| 11 | Lanzar en Vercel | pendiente |
 
-## Fase 1 — Base de datos
+## Producto final v2
 
-Postgres + Drizzle. Una tabla `users` mínima. Un script `db:push`.
-
-Aprender: qué es un ORM, qué es una migración, por qué no guardamos secretos en el schema.
-
-## Fase 2 — Autenticación
-
-Registro + login con email y contraseña. Hash con bcrypt. Sesión con Auth.js.
-
-Aprender: qué viaja en la cookie, por qué no se guarda la contraseña en claro, diferencia JWT vs sesión en base de datos.
-
-## Fase 3 — CV base
-
-Un usuario tiene un CV en Markdown. Crear, editar, listar. Sin PDF. Sin IA.
-
-Aprender: ownership (`cv.userId === session.user.id`), Server Actions, validación de input.
-
-## Fase 4 — Candidaturas
-
-Tabla `job_offer` y un tablero simple (columnas por estado). Sin drag-and-drop al principio.
-
-Aprender: máquina de estados (`interested → applied → interview → offer → rejected`), índices, no usar `text` libre para estados.
-
-## Fase 5 — PDF
-
-Un endpoint que convierte el Markdown del CV en PDF.
-
-Aprender: por qué esto va en el servidor, streaming de binarios, límites de memoria.
-
-## Fase 6 — IA, un solo caso de uso
-
-Un botón: “adapta este CV a esta oferta”. Un proveedor. Un prompt. Un resultado editable.
-
-Aprender: el modelo no es una caja mágica; hay sistema, usuario, parseo, fallos, coste.
-
-## Fase 7 — Cobro
-
-Stripe Checkout + webhook + un flag `subscriptionStatus`.
-
-Aprender: el webhook es la fuente de verdad, no el redirect de éxito.
-
-## Después, solo si lo anterior es sólido
-
-Extensión de LinkedIn, MCP, research, invitados, admin. Son multiplicadores, no el producto.
+Registro → CV estructurado → oferta → match → optimizar → PDF → pago si se acaba la cuota.
 
 ## Qué no se copia de v1
 
 - Archivos de 2.000 líneas.
-- Modal y página duplicados.
+- STAR, MCP, extensión y research en el primer producto.
+- Auth / Realtime / Edge Functions de Supabase.
+- Varios proveedores de IA a la vez.
 - API keys de usuario en texto plano.
-- Prompts, Stripe, OAuth y Kanban en el mismo pull request.
+- Prompts, Stripe y Kanban en el mismo pull request.
