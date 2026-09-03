@@ -1,4 +1,14 @@
-import { index, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import {
+  boolean,
+  index,
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -23,4 +33,29 @@ export const sessions = pgTable(
       .notNull(),
   },
   (table) => [index("sessions_user_id_idx").on(table.userId)],
+);
+
+export const cvs = pgTable(
+  "cvs",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    data: jsonb("data").notNull(),
+    isActive: boolean("is_active").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index("cvs_user_id_idx").on(table.userId),
+    uniqueIndex("cvs_one_active_per_user")
+      .on(table.userId)
+      .where(sql`${table.isActive}`),
+  ],
 );
