@@ -150,3 +150,38 @@ Una Server Action es un POST. Si el cuerpo de la acción no llama a `auth()`, se
 5. ¿Por qué no usamos Auth de Supabase ni Google OAuth aquí?
 
 Cuando las respondas en voz alta, sin mirar, Fase 2 está cerrada.
+
+## Fase 3 — lo que tiene que salir de memoria
+
+### JSON, no Markdown
+
+La fuente de verdad es un objeto:
+
+```text
+{
+  profile,
+  experience: [ { company, role, bullets[] } ],
+  education:  [ { school, degree, year } ],
+  skills:     [ "TypeScript", … ]
+}
+```
+
+Si el CV fuera un Markdown suelto, la IA de las etapas 6–8 tendría que adivinar dónde acaba un trabajo. Con secciones, el runner puede mandar `experience[2]` y escribir solo eso. El preview (y más adelante el PDF) es una proyección de ese JSON.
+
+### Ownership
+
+Toda query lleva `userId` de `auth()`. `getOwnedCv(id, userId)` es `WHERE id = ? AND user_id = ?`. Si pides el CV de otra persona, no existe para ti. El componente no escribe SQL: llama a `src/db/cvs.ts` o a una Server Action que valida y luego habla con la base.
+
+### Validar input
+
+El editor manda JSON en un campo hidden. El servidor no se fía: `parseCv` recorta longitudes, tira claves raras y reconstruye el objeto. Lo que no pasa por `parseCv` no se guarda.
+
+### Preguntas de entrevista para esta fase
+
+1. ¿Por qué el CV no es un Markdown suelto si luego la IA tiene que tocarlo por secciones?
+2. ¿Qué impide leer o editar el CV de otro usuario?
+3. ¿Dónde se valida el input y por qué no en el componente?
+4. ¿Qué significa que un CV esté activo?
+5. ¿Qué queda fuera (PDF, TipTap, plantillas, IA)?
+
+Cuando las respondas en voz alta, sin mirar, Fase 3 está cerrada.

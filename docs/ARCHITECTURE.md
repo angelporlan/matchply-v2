@@ -15,27 +15,26 @@
 
 Si una pieza no está en esta tabla, no entra hasta el producto final.
 
-## Fase 2 (hoy)
+## Fase 3 (hoy)
 
 ```text
 navegador
    |
-   |  GET /  /register  /login  /dashboard
+   |  /dashboard  /cvs/[id]
    v
-src/app/.../page.tsx
-   |-- src/lib/auth-actions.ts   registro / login / logout
-   |-- src/lib/auth.ts           cookie → auth() → userId
-   |-- src/lib/password.ts       scrypt (nunca texto plano)
+src/app/.../page.tsx          enruta (sin SQL)
+   |-- src/lib/cv-actions.ts  ownership + validar
+   |-- src/lib/cv.ts          JSON: perfil, experiencia, educación, skills
+   |-- src/db/cvs.ts          habla SQL
    |
    v
 Supabase Postgres
-   users (email, password_hash)
-   sessions (token, user_id, expires_at)
+   cvs (user_id, title, data jsonb, is_active)
 ```
 
-La sesión es nuestra: cookie httpOnly + fila en `sessions`. No hay Auth de Supabase, ni OAuth, ni invitados.
+El CV activo es una fila con `is_active`. Solo se lee o escribe si `cv.userId === session.userId`.
 
-## Destino (etapas 3–11)
+## Destino (etapas 4–11)
 
 ```text
 navegador

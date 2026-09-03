@@ -10,8 +10,8 @@ Una etapa, un concepto. No se abre la siguiente si la anterior no se puede expli
 | --- | --- | --- |
 | 0 | Cimiento (Next + healthcheck) | hecha |
 | 1 | Datos (Supabase Postgres + Drizzle) | hecha |
-| 2 | Identidad (registro / sesión) | actual |
-| 3 | CV estructurado + editor | pendiente |
+| 2 | Identidad (registro / sesión) | hecha |
+| 3 | CV estructurado + editor | actual |
 | 4 | Ofertas y estados | pendiente |
 | 5 | Motor IA (proveedor + skills + runner) | pendiente |
 | 6 | Skill `match_offer` | pendiente |

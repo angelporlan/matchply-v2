@@ -13,8 +13,8 @@ No entra en esa versión: STAR, extensión de Chrome, MCP, research profundo, in
 ```text
 0  Cimiento          Next arranca en local          ✓ hecha
 1  Datos             Supabase + Drizzle + users     ✓ hecha
-2  Identidad         registro / login / sesión      actual
-3  CV                modelo JSON + editor simple
+2  Identidad         registro / login / sesión      ✓ hecha
+3  CV                modelo JSON + editor simple    actual
 4  Ofertas           pegar oferta + estados
 5  Motor IA          1 proveedor + tabla skills + runner
 6  Skill match       puntuar CV contra oferta
@@ -53,7 +53,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 2 — Identidad (actual)
+## Etapa 2 — Identidad (hecha)
 
 **Construyes:** registro, login, logout. Password hasheada. Cookie de sesión. Ruta `/dashboard` protegida.
 
@@ -65,7 +65,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 3 — CV estructurado
+## Etapa 3 — CV estructurado (actual)
 
 **Construyes:** un usuario crea un CV. Fuente de verdad: JSON (perfil, experiencia, educación, skills). Editor por secciones + preview. Listar y elegir el CV activo.
 
