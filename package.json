@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "drizzle-orm": "^0.45.2",
     "next": "^14.2.15",
+    "postgres": "^3.4.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -19,6 +22,7 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.15",
     "postcss": "^8.4.47",
