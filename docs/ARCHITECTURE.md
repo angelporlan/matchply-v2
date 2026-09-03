@@ -15,27 +15,30 @@
 
 Si una pieza no está en esta tabla, no entra hasta el producto final.
 
-## Fase 0 (hoy)
+## Fase 1 (hoy)
 
 ```text
 navegador
    |
    |  GET /
    v
-Vercel / next dev
-   |-- src/app/layout.tsx     cáscara HTML
-   |-- src/app/page.tsx       landing
+src/app/layout.tsx / page.tsx
    |
    |  GET /api/health
    v
 src/app/api/health/route.ts
-   |
-   +-- src/lib/env.ts
+   |-- src/lib/env.ts      DATABASE_URL (solo servidor)
+   |-- src/db/schema.ts    tabla users
+   |-- src/db/index.ts     drizzle + postgres.js
+         |
+         |  select 1
+         v
+    Supabase Postgres
 ```
 
-No hay base de datos. No hay sesión.
+Hay Postgres. No hay sesión. No hay Auth / Storage / Realtime / RLS de Supabase.
 
-## Destino (etapas 1–11)
+## Destino (etapas 2–11)
 
 ```text
 navegador
@@ -63,7 +66,7 @@ src/
   app/             rutas (páginas y APIs)
   components/      UI reutilizable
   lib/             casos de uso y utilidades sin JSX
-  db/              cliente Drizzle + schema   (desde etapa 1)
+  db/              cliente Drizzle + schema
 ```
 
 Regla: `app/` enruta, `components/` pinta, `lib/` decide, `db/` habla SQL. Si un archivo mezcla tres, se parte.

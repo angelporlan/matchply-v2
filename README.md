@@ -19,11 +19,11 @@ Si no puedes explicarla, no entra. Si entra, cabe en la cabeza.
 - IA: un proveedor + skills versionadas + un runner
 - Pago: Stripe, cuando haya cuota que cobrar
 
-## Qué hay ahora (etapa 0)
+## Qué hay ahora (etapa 1)
 
-Una app que arranca, pinta una landing mínima y responde `GET /api/health`.
+Una app que arranca, pinta una landing mínima y responde `GET /api/health` con un `select 1` contra Postgres. El schema vive en Drizzle; la única tabla es `users`.
 
-No hay autenticación, ni base de datos, ni Stripe, ni IA. Eso es deliberado.
+No hay autenticación, ni Stripe, ni IA. Eso es deliberado.
 
 | Quieres esto | Está en |
 | --- | --- |
@@ -40,17 +40,23 @@ Un candidato se registra, guarda un CV estructurado, pega una oferta, ve un matc
 
 ## Arrancar
 
-Necesitas Node.js 20+.
+Necesitas Node.js 20+ y un proyecto de [Supabase](https://supabase.com) (solo Postgres: no actives Auth, Storage ni Realtime para esta etapa).
 
 ```bash
 git clone https://github.com/angelporlan/matchply-v2.git
 cd matchply-v2
 cp .env.example .env
+```
+
+En el dashboard de Supabase: **Connect** → copia la URI del **Shared Pooler** y pégala en `DATABASE_URL` (sustituye `[PASSWORD]`). Si `db:push` falla con el puerto 6543, usa la URI de modo sesión (puerto 5432 en el host `*.pooler.supabase.com`).
+
+```bash
 npm install
+npm run db:push
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). La salud de la app está en [http://localhost:3000/api/health](http://localhost:3000/api/health).
+Abre [http://localhost:3000](http://localhost:3000). La salud de la app — ahora con `select 1` — está en [http://localhost:3000/api/health](http://localhost:3000/api/health). Debe devolver `"db": true`. En el Table Editor de Supabase tiene que existir `public.users`.
 
 ## Scripts
 
@@ -60,6 +66,7 @@ npm run build      # compilación de producción
 npm run start      # servir el build
 npm run lint       # ESLint de Next
 npm run typecheck  # TypeScript sin emitir archivos
+npm run db:push    # sincroniza schema.ts → Postgres (sin archivos de migración)
 ```
 
 ## Límites

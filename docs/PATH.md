@@ -12,7 +12,7 @@ No entra en esa versión: STAR, extensión de Chrome, MCP, research profundo, in
 
 ```text
 0  Cimiento          Next arranca en local          ✓ hecha
-1  Datos             Supabase + Drizzle + users
+1  Datos             Supabase + Drizzle + users     actual
 2  Identidad         registro / login / sesión
 3  CV                modelo JSON + editor simple
 4  Ofertas           pegar oferta + estados
@@ -29,7 +29,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 0 — Cimiento (actual)
+## Etapa 0 — Cimiento (hecha)
 
 **Construyes:** landing mínima + `GET /api/health`.
 
@@ -41,7 +41,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 1 — Datos
+## Etapa 1 — Datos (actual)
 
 **Construyes:** proyecto en Supabase (solo Postgres). Drizzle. Tabla `users`. `npm run db:push`. Healthcheck que hace `select 1`.
 

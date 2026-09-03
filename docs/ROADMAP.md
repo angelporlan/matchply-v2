@@ -8,8 +8,8 @@ Una etapa, un concepto. No se abre la siguiente si la anterior no se puede expli
 
 | Etapa | Nombre | Estado |
 | --- | --- | --- |
-| 0 | Cimiento (Next + healthcheck) | actual |
-| 1 | Datos (Supabase Postgres + Drizzle) | siguiente |
+| 0 | Cimiento (Next + healthcheck) | hecha |
+| 1 | Datos (Supabase Postgres + Drizzle) | actual |
 | 2 | Identidad (registro / sesión) | pendiente |
 | 3 | CV estructurado + editor | pendiente |
 | 4 | Ofertas y estados | pendiente |
