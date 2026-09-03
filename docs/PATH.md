@@ -12,8 +12,8 @@ No entra en esa versión: STAR, extensión de Chrome, MCP, research profundo, in
 
 ```text
 0  Cimiento          Next arranca en local          ✓ hecha
-1  Datos             Supabase + Drizzle + users     actual
-2  Identidad         registro / login / sesión
+1  Datos             Supabase + Drizzle + users     ✓ hecha
+2  Identidad         registro / login / sesión      actual
 3  CV                modelo JSON + editor simple
 4  Ofertas           pegar oferta + estados
 5  Motor IA          1 proveedor + tabla skills + runner
@@ -41,7 +41,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 1 — Datos (actual)
+## Etapa 1 — Datos (hecha)
 
 **Construyes:** proyecto en Supabase (solo Postgres). Drizzle. Tabla `users`. `npm run db:push`. Healthcheck que hace `select 1`.
 
@@ -53,7 +53,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 2 — Identidad
+## Etapa 2 — Identidad (actual)
 
 **Construyes:** registro, login, logout. Password hasheada. Cookie de sesión. Ruta `/dashboard` protegida.
 

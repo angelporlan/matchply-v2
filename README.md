@@ -19,11 +19,11 @@ Si no puedes explicarla, no entra. Si entra, cabe en la cabeza.
 - IA: un proveedor + skills versionadas + un runner
 - Pago: Stripe, cuando haya cuota que cobrar
 
-## Qué hay ahora (etapa 1)
+## Qué hay ahora (etapa 2)
 
-Una app que arranca, pinta una landing mínima y responde `GET /api/health` con un `select 1` contra Postgres. El schema vive en Drizzle; la única tabla es `users`.
+Cuentas propias: registro, login, logout. La contraseña se guarda con `scrypt`. La sesión es una cookie httpOnly y una fila en `sessions`. `/dashboard` pide `auth()` y, si no hay sesión, redirige a `/login`.
 
-No hay autenticación, ni Stripe, ni IA. Eso es deliberado.
+No hay OAuth, ni Stripe, ni IA. Eso es deliberado.
 
 | Quieres esto | Está en |
 | --- | --- |
@@ -56,7 +56,7 @@ npm run db:push
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). La salud de la app — ahora con `select 1` — está en [http://localhost:3000/api/health](http://localhost:3000/api/health). Debe devolver `"db": true`. En el Table Editor de Supabase tiene que existir `public.users`.
+Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta en `/register`. `/dashboard` solo entra con cookie de sesión. El pulso sigue en [http://localhost:3000/api/health](http://localhost:3000/api/health) (`"db": true`). En el Table Editor tienen que existir `public.users` y `public.sessions`.
 
 ## Scripts
 

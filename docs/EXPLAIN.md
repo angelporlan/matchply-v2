@@ -108,3 +108,45 @@ Si Postgres no responde: HTTP 503 y `db: false`. La tabla `users` existe tras `d
 5. ¿Qué queda fuera de esta etapa a propósito (Auth, RLS, Storage)?
 
 Cuando las respondas en voz alta, sin mirar, Fase 1 está cerrada.
+
+## Fase 2 — lo que tiene que salir de memoria
+
+### Contraseña hasheada
+
+En `users.password_hash` no va la contraseña. Va un salt + el resultado de `scrypt`. Si alguien copia la tabla, no tiene las contraseñas. `verifyPassword` vuelve a derivar la clave y compara con `timingSafeEqual` para no filtrar por tiempo si el hash coincide.
+
+### Cookie de sesión
+
+Tras login (o registro) el servidor:
+
+1. Genera un token aleatorio
+2. Lo guarda en `sessions` con `user_id` y `expires_at`
+3. Lo pone en una cookie `httpOnly` llamada `session`
+
+El navegador no puede leerla con JavaScript. No viaja el `userId` ni el hash de la contraseña: viaja un token opaco. Quien robe la cookie es esa sesión; por eso es httpOnly y `SameSite=lax`.
+
+### `auth()` → `userId`
+
+```text
+request (Cookie: session=…)
+    → auth() lee la cookie
+    → SELECT en sessions WHERE token = …
+    → si existe y no ha caducado: { userId }
+    → si no: null
+```
+
+`requireAuth()` es `auth()` + redirect a `/login`. El dashboard hace `const { userId } = await requireAuth()` y con eso consulta `users`.
+
+### Server Action sin sesión
+
+Una Server Action es un POST. Si el cuerpo de la acción no llama a `auth()`, se ejecuta igual: no hay magia. Registro y login son públicos. Logout borra la cookie. Cualquier acción que toque datos de un usuario tiene que pedir `auth()` dentro, no fiarse de que “la página está protegida”.
+
+### Preguntas de entrevista para esta fase
+
+1. ¿Por qué no se guarda la contraseña en claro?
+2. ¿Qué viaja en la cookie y qué no?
+3. ¿Qué pasa si alguien llama a una Server Action sin sesión?
+4. Dibuja login → cookie → `auth()` → `userId` en una query.
+5. ¿Por qué no usamos Auth de Supabase ni Google OAuth aquí?
+
+Cuando las respondas en voz alta, sin mirar, Fase 2 está cerrada.

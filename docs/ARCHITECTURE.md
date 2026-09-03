@@ -15,30 +15,27 @@
 
 Si una pieza no está en esta tabla, no entra hasta el producto final.
 
-## Fase 1 (hoy)
+## Fase 2 (hoy)
 
 ```text
 navegador
    |
-   |  GET /
+   |  GET /  /register  /login  /dashboard
    v
-src/app/layout.tsx / page.tsx
+src/app/.../page.tsx
+   |-- src/lib/auth-actions.ts   registro / login / logout
+   |-- src/lib/auth.ts           cookie → auth() → userId
+   |-- src/lib/password.ts       scrypt (nunca texto plano)
    |
-   |  GET /api/health
    v
-src/app/api/health/route.ts
-   |-- src/lib/env.ts      DATABASE_URL (solo servidor)
-   |-- src/db/schema.ts    tabla users
-   |-- src/db/index.ts     drizzle + postgres.js
-         |
-         |  select 1
-         v
-    Supabase Postgres
+Supabase Postgres
+   users (email, password_hash)
+   sessions (token, user_id, expires_at)
 ```
 
-Hay Postgres. No hay sesión. No hay Auth / Storage / Realtime / RLS de Supabase.
+La sesión es nuestra: cookie httpOnly + fila en `sessions`. No hay Auth de Supabase, ni OAuth, ni invitados.
 
-## Destino (etapas 2–11)
+## Destino (etapas 3–11)
 
 ```text
 navegador

@@ -9,8 +9,8 @@ Una etapa, un concepto. No se abre la siguiente si la anterior no se puede expli
 | Etapa | Nombre | Estado |
 | --- | --- | --- |
 | 0 | Cimiento (Next + healthcheck) | hecha |
-| 1 | Datos (Supabase Postgres + Drizzle) | actual |
-| 2 | Identidad (registro / sesión) | pendiente |
+| 1 | Datos (Supabase Postgres + Drizzle) | hecha |
+| 2 | Identidad (registro / sesión) | actual |
 | 3 | CV estructurado + editor | pendiente |
 | 4 | Ofertas y estados | pendiente |
 | 5 | Motor IA (proveedor + skills + runner) | pendiente |
