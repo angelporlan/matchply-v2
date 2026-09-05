@@ -15,26 +15,27 @@
 
 Si una pieza no está en esta tabla, no entra hasta el producto final.
 
-## Fase 3 (hoy)
+## Fase 4 (hoy)
 
 ```text
 navegador
    |
-   |  /dashboard  /cvs/[id]
+   |  /offers  /offers/[id]
    v
-src/app/.../page.tsx          enruta (sin SQL)
-   |-- src/lib/cv-actions.ts  ownership + validar
-   |-- src/lib/cv.ts          JSON: perfil, experiencia, educación, skills
-   |-- src/db/cvs.ts          habla SQL
+src/app/.../page.tsx
+   |-- src/lib/offer-actions.ts  ownership + transiciones
+   |-- src/lib/offer.ts          enum + máquina de estados
+   |-- src/db/offers.ts          habla SQL
    |
    v
 Supabase Postgres
-   cvs (user_id, title, data jsonb, is_active)
+   job_offers (status offer_status, cv_id, user_id)
+   índice (user_id, status)
 ```
 
-El CV activo es una fila con `is_active`. Solo se lee o escribe si `cv.userId === session.userId`.
+El estado no es un `text` libre: es el enum `interested → applied → interview → offer → rejected`. Solo el dueño actualiza esa fila.
 
-## Destino (etapas 4–11)
+## Destino (etapas 5–11)
 
 ```text
 navegador

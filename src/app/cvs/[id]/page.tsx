@@ -32,7 +32,7 @@ export default async function CvPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-5xl flex-col gap-8 px-6 py-16">
       <p className="text-sm uppercase tracking-[0.2em] text-ink/60">
-        Fase 3 · CV
+        Fase 4 · Ofertas
       </p>
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-4xl font-semibold tracking-tight">Editar CV</h1>

@@ -19,11 +19,11 @@ Si no puedes explicarla, no entra. Si entra, cabe en la cabeza.
 - IA: un proveedor + skills versionadas + un runner
 - Pago: Stripe, cuando haya cuota que cobrar
 
-## Qué hay ahora (etapa 3)
+## Qué hay ahora (etapa 4)
 
-Tras entrar, creas un CV. La fuente de verdad es JSON (perfil, experiencia, educación, skills), con editor por secciones y preview. Puedes tener varios y marcar uno como activo. Solo ves los tuyos: `cv.userId === session.userId`.
+Pegas una oferta (título, empresa, descripción, URL opcional), la enlazas a un CV y la mueves por estados: `interested → applied → interview → offer → rejected`. El estado es un enum de Postgres, no un texto libre. El tablero no es drag-and-drop: botones que respetan la máquina de estados.
 
-No hay PDF, ni IA, ni TipTap. Eso es deliberado.
+No hay IA, ni scrapers, ni extensión de LinkedIn. Eso es deliberado.
 
 | Quieres esto | Está en |
 | --- | --- |
@@ -56,7 +56,7 @@ npm run db:push
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta en `/register`, un CV en `/dashboard` y edítalo en `/cvs/[id]`. El pulso sigue en [http://localhost:3000/api/health](http://localhost:3000/api/health). En el Table Editor: `users`, `sessions` y `cvs`.
+Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta, un CV y pega una oferta en `/offers`. El pulso sigue en [http://localhost:3000/api/health](http://localhost:3000/api/health). En el Table Editor: `users`, `sessions`, `cvs` y `job_offers`.
 
 ## Scripts
 

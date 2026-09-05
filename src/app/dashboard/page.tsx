@@ -26,11 +26,19 @@ export default async function DashboardPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-16">
       <p className="text-sm uppercase tracking-[0.2em] text-ink/60">
-        Fase 3 · CV
+        Fase 4 · Ofertas
       </p>
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-4xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-sm text-ink/60">{user.email}</p>
+        <p className="flex flex-wrap gap-x-4 text-sm text-ink/60">
+          <span>{user.email}</span>
+          <Link
+            className="underline decoration-ink/30 underline-offset-4"
+            href="/offers"
+          >
+            Ofertas
+          </Link>
+        </p>
       </div>
 
       <section className="flex flex-col gap-4">

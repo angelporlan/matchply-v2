@@ -185,3 +185,37 @@ El editor manda JSON en un campo hidden. El servidor no se fía: `parseCv` recor
 5. ¿Qué queda fuera (PDF, TipTap, plantillas, IA)?
 
 Cuando las respondas en voz alta, sin mirar, Fase 3 está cerrada.
+
+## Fase 4 — lo que tiene que salir de memoria
+
+### Enum, no texto libre
+
+`job_offers.status` es el tipo Postgres `offer_status`. Cinco valores: `interested`, `applied`, `interview`, `offer`, `rejected`. Un `UPDATE` con `"en proceso"` lo rechaza la base. El tablero agrupa por ese enum.
+
+### Máquina de estados
+
+El enum lista los sitios. Las flechas viven en `TRANSITIONS`:
+
+```text
+interested → applied | rejected
+applied    → interview | rejected
+interview  → offer | rejected
+offer      → rejected
+rejected   → interested
+```
+
+El botón del tablero solo enseña destinos legales. La Server Action vuelve a llamar `canTransition`. Si alguien POST-ea `interested → offer`, no se toca la fila.
+
+### Qué fila y quién
+
+Cambiar estado es un `UPDATE job_offers SET status = $1 WHERE id = $2 AND user_id = $3`. Una fila. La de esa oferta. Solo si `auth()` te da ese `user_id`. El índice `(user_id, status)` sirve para pintar el tablero: “mis ofertas en esta columna”.
+
+### Preguntas de entrevista para esta fase
+
+1. ¿Por qué el estado es un enum y no un `text`?
+2. ¿Qué impide saltar de `interested` a `offer`?
+3. Cambias un estado: ¿qué fila se actualiza y quién puede hacerlo?
+4. ¿Para qué sirve el índice `(user_id, status)`?
+5. ¿Qué queda fuera (drag-and-drop, LinkedIn, scrapers)?
+
+Cuando las respondas en voz alta, sin mirar, Fase 4 está cerrada.

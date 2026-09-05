@@ -8,6 +8,7 @@ import {
   timestamp,
   uniqueIndex,
   uuid,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -57,5 +58,39 @@ export const cvs = pgTable(
     uniqueIndex("cvs_one_active_per_user")
       .on(table.userId)
       .where(sql`${table.isActive}`),
+  ],
+);
+
+export const offerStatus = pgEnum("offer_status", [
+  "interested",
+  "applied",
+  "interview",
+  "offer",
+  "rejected",
+]);
+
+export const jobOffers = pgTable(
+  "job_offers",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    cvId: uuid("cv_id").references(() => cvs.id, { onDelete: "set null" }),
+    title: text("title").notNull(),
+    company: text("company").notNull(),
+    description: text("description").notNull(),
+    url: text("url"),
+    status: offerStatus("status").notNull().default("interested"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index("job_offers_user_status_idx").on(table.userId, table.status),
+    index("job_offers_cv_id_idx").on(table.cvId),
   ],
 );

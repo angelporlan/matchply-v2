@@ -14,8 +14,8 @@ No entra en esa versión: STAR, extensión de Chrome, MCP, research profundo, in
 0  Cimiento          Next arranca en local          ✓ hecha
 1  Datos             Supabase + Drizzle + users     ✓ hecha
 2  Identidad         registro / login / sesión      ✓ hecha
-3  CV                modelo JSON + editor simple    actual
-4  Ofertas           pegar oferta + estados
+3  CV                modelo JSON + editor simple    ✓ hecha
+4  Ofertas           pegar oferta + estados         actual
 5  Motor IA          1 proveedor + tabla skills + runner
 6  Skill match       puntuar CV contra oferta
 7  Skill optimize    adaptar CV a la oferta
@@ -65,7 +65,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 3 — CV estructurado (actual)
+## Etapa 3 — CV estructurado (hecha)
 
 **Construyes:** un usuario crea un CV. Fuente de verdad: JSON (perfil, experiencia, educación, skills). Editor por secciones + preview. Listar y elegir el CV activo.
 
@@ -77,7 +77,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 4 — Ofertas
+## Etapa 4 — Ofertas (actual)
 
 **Construyes:** pegar título, empresa, descripción (y URL opcional). Lista o tablero simple por estado: `interested → applied → interview → offer → rejected`. Enlazar un CV a la oferta.
 
