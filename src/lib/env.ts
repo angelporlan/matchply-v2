@@ -18,4 +18,9 @@ export const env = {
   get databaseUrl() {
     return required("DATABASE_URL");
   },
+  /** Clave de Gemini. Solo servidor: no lleva `NEXT_PUBLIC_`. */
+  get geminiApiKey() {
+    return required("GEMINI_API_KEY");
+  },
+  geminiModel: process.env.GEMINI_MODEL ?? "gemini-2.5-flash",
 };

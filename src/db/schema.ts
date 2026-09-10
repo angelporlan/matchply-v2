@@ -9,6 +9,8 @@ import {
   uniqueIndex,
   uuid,
   pgEnum,
+  integer,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -92,5 +94,22 @@ export const jobOffers = pgTable(
   (table) => [
     index("job_offers_user_status_idx").on(table.userId, table.status),
     index("job_offers_cv_id_idx").on(table.cvId),
+  ],
+);
+
+export const skills = pgTable(
+  "skills",
+  {
+    id: text("id").notNull(),
+    version: integer("version").notNull(),
+    system: text("system").notNull(),
+    userTemplate: text("user_template").notNull(),
+    output: jsonb("output").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    primaryKey({ name: "skills_pkey", columns: [table.id, table.version] }),
   ],
 );
