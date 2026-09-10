@@ -12,8 +12,8 @@ Una etapa, un concepto. No se abre la siguiente si la anterior no se puede expli
 | 1 | Datos (Supabase Postgres + Drizzle) | hecha |
 | 2 | Identidad (registro / sesión) | hecha |
 | 3 | CV estructurado + editor | hecha |
-| 4 | Ofertas y estados | actual |
-| 5 | Motor IA (proveedor + skills + runner) | pendiente |
+| 4 | Ofertas y estados | hecha |
+| 5 | Motor IA (proveedor + skills + runner) | actual |
 | 6 | Skill `match_offer` | pendiente |
 | 7 | Skill `optimize_cv` | pendiente |
 | 8 | Skill `rewrite_section` | pendiente |

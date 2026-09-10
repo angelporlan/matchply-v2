@@ -15,27 +15,22 @@
 
 Si una pieza no está en esta tabla, no entra hasta el producto final.
 
-## Fase 4 (hoy)
+## Fase 5 (hoy)
 
 ```text
-navegador
-   |
-   |  /offers  /offers/[id]
-   v
-src/app/.../page.tsx
-   |-- src/lib/offer-actions.ts  ownership + transiciones
-   |-- src/lib/offer.ts          enum + máquina de estados
-   |-- src/db/offers.ts          habla SQL
-   |
-   v
-Supabase Postgres
-   job_offers (status offer_status, cv_id, user_id)
-   índice (user_id, status)
+navegador  POST /ai  (skill echo)
+    → runner
+         1. carga skill (tabla skills)
+         2. monta system + userTemplate
+         3. provider HTTP → generativelanguage.googleapis.com
+         4. parsea JSON
+         5. valida skill.output
+    → { echo: "…" }  o  "basura"
 ```
 
-El estado no es un `text` libre: es el enum `interested → applied → interview → offer → rejected`. Solo el dueño actualiza esa fila.
+La clave es `GEMINI_API_KEY` en el servidor. Un proveedor. Añadir `match_offer` no toca el cliente HTTP.
 
-## Destino (etapas 5–11)
+## Destino (etapas 6–11)
 
 ```text
 navegador

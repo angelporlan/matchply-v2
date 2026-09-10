@@ -219,3 +219,37 @@ Cambiar estado es un `UPDATE job_offers SET status = $1 WHERE id = $2 AND user_i
 5. ¿Qué queda fuera (drag-and-drop, LinkedIn, scrapers)?
 
 Cuando las respondas en voz alta, sin mirar, Fase 4 está cerrada.
+
+## Fase 5 — lo que tiene que salir de memoria
+
+### El runner, en una pizarra
+
+```text
+input  →  valida
+       →  lee skill (system, userTemplate, output)
+       →  monta mensajes
+       →  HTTP al proveedor (un POST)
+       →  parsea JSON
+       →  valida contra skill.output
+       →  objeto  |  error "basura"
+```
+
+No hay un agente que decida. Una request = una skill = una respuesta. Si el modelo escribe un párrafo en vez de JSON, el código lo tira. No se reintenta en bucle.
+
+### Dónde está la API key
+
+`GEMINI_API_KEY` en `.env`, leída por `src/lib/env.ts`. El `fetch` sale del servidor hacia Gemini. Si la pones `NEXT_PUBLIC_`, acaba en el bundle y cualquiera gasta tu cuota.
+
+### System prompt
+
+Es el mensaje `role: system` de la skill. Dice el formato. El `userTemplate` interpola `{{text}}`. Cambiar echo por `match_offer` es otra fila, no otro cliente HTTP.
+
+### Preguntas de entrevista para esta fase
+
+1. Dibuja el runner. ¿Dónde “decide el agente”?
+2. ¿Por qué `GEMINI_API_KEY` no lleva `NEXT_PUBLIC_`?
+3. ¿Qué hace el código si el modelo no devuelve JSON?
+4. ¿Qué hay en la tabla `skills` y por qué el prompt no está en un `if`?
+5. ¿Qué queda fuera (LangChain, varios proveedores, embeddings, optimizar CVs)?
+
+Cuando las respondas en voz alta, sin mirar, Fase 5 está cerrada.

@@ -19,11 +19,11 @@ Si no puedes explicarla, no entra. Si entra, cabe en la cabeza.
 - IA: un proveedor + skills versionadas + un runner
 - Pago: Stripe, cuando haya cuota que cobrar
 
-## Qué hay ahora (etapa 4)
+## Qué hay ahora (etapa 5)
 
-Pegas una oferta (título, empresa, descripción, URL opcional), la enlazas a un CV y la mueves por estados: `interested → applied → interview → offer → rejected`. El estado es un enum de Postgres, no un texto libre. El tablero no es drag-and-drop: botones que respetan la máquina de estados.
+Hay un motor de IA: un cliente HTTP a Gemini, una tabla `skills` y un runner. La skill dummy `echo` prueba el tubo. No hay match ni optimizar todavía.
 
-No hay IA, ni scrapers, ni extensión de LinkedIn. Eso es deliberado.
+La clave es `GEMINI_API_KEY` (servidor). Nunca `NEXT_PUBLIC_`.
 
 | Quieres esto | Está en |
 | --- | --- |
@@ -56,7 +56,7 @@ npm run db:push
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta, un CV y pega una oferta en `/offers`. El pulso sigue en [http://localhost:3000/api/health](http://localhost:3000/api/health). En el Table Editor: `users`, `sessions`, `cvs` y `job_offers`.
+Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta, un CV, una oferta y prueba el tubo en `/ai` (necesitas `GEMINI_API_KEY` de [Google AI Studio](https://aistudio.google.com/apikey)). En el Table Editor: `users`, `sessions`, `cvs`, `job_offers` y `skills`.
 
 ## Scripts
 

@@ -15,8 +15,8 @@ No entra en esa versión: STAR, extensión de Chrome, MCP, research profundo, in
 1  Datos             Supabase + Drizzle + users     ✓ hecha
 2  Identidad         registro / login / sesión      ✓ hecha
 3  CV                modelo JSON + editor simple    ✓ hecha
-4  Ofertas           pegar oferta + estados         actual
-5  Motor IA          1 proveedor + tabla skills + runner
+4  Ofertas           pegar oferta + estados         ✓ hecha
+5  Motor IA          1 proveedor + tabla skills + runner  actual
 6  Skill match       puntuar CV contra oferta
 7  Skill optimize    adaptar CV a la oferta
 8  Skill rewrite     reescribir una sección
@@ -77,7 +77,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 4 — Ofertas (actual)
+## Etapa 4 — Ofertas (hecha)
 
 **Construyes:** pegar título, empresa, descripción (y URL opcional). Lista o tablero simple por estado: `interested → applied → interview → offer → rejected`. Enlazar un CV a la oferta.
 
@@ -89,7 +89,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 5 — Motor de IA (sin features de producto)
+## Etapa 5 — Motor de IA (sin features de producto) (actual)
 
 **Construyes:** un cliente HTTP a un solo proveedor. Tabla `skills` (id, version, system, userTemplate, output). Un runner: valida input → monta mensajes → llama → parsea → valida salida. Seed de una skill dummy (`echo`) para probar el tubo.
 
