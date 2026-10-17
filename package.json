@@ -13,9 +13,11 @@
   "dependencies": {
     "drizzle-orm": "^0.45.2",
     "next": "^14.2.15",
+    "pdf-lib": "^1.17.1",
     "postgres": "^3.4.9",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "stripe": "^22.6.2"
   },
   "devDependencies": {
     "@types/node": "^20.16.10",

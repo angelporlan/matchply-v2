@@ -17,6 +17,8 @@ export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
+  subscriptionStatus: text("subscription_status").notNull().default("free"),
+  stripeCustomerId: text("stripe_customer_id"),
   createdAt: timestamp("created_at", { withTimezone: true })
     .defaultNow()
     .notNull(),
@@ -47,6 +49,8 @@ export const cvs = pgTable(
       .references(() => users.id, { onDelete: "cascade" }),
     title: text("title").notNull(),
     data: jsonb("data").notNull(),
+    sourceCvId: uuid("source_cv_id"),
+    offerId: uuid("offer_id"),
     isActive: boolean("is_active").notNull().default(false),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
@@ -84,6 +88,12 @@ export const jobOffers = pgTable(
     description: text("description").notNull(),
     url: text("url"),
     status: offerStatus("status").notNull().default("interested"),
+    matchScore: integer("match_score"),
+    matchGaps: jsonb("match_gaps"),
+    matchEvidence: jsonb("match_evidence"),
+    matchedAt: timestamp("matched_at", { withTimezone: true }),
+    proposal: jsonb("proposal"),
+    proposalAt: timestamp("proposal_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),
@@ -112,4 +122,19 @@ export const skills = pgTable(
   (table) => [
     primaryKey({ name: "skills_pkey", columns: [table.id, table.version] }),
   ],
+);
+
+export const aiRuns = pgTable(
+  "ai_runs",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    skillId: text("skill_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [index("ai_runs_user_created_idx").on(table.userId, table.createdAt)],
 );

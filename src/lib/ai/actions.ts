@@ -6,7 +6,7 @@ import { runSkill, SkillError } from "@/lib/ai/runner";
 import { requireAuth } from "@/lib/auth";
 
 export async function runEcho(formData: FormData) {
-  await requireAuth();
+  const { userId } = await requireAuth();
   await seedSkills();
 
   const text = String(formData.get("text") ?? "").trim();
@@ -16,7 +16,7 @@ export async function runEcho(formData: FormData) {
 
   let result: Record<string, unknown>;
   try {
-    result = await runSkill("echo", { text });
+    result = await runSkill("echo", { text }, userId);
   } catch (error) {
     if (error instanceof SkillError) {
       redirect(`/ai?error=${error.code}`);

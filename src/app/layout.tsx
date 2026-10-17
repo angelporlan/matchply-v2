@@ -4,7 +4,7 @@ import { env } from "@/lib/env";
 
 export const metadata: Metadata = {
   title: env.appName,
-  description: "Optimiza tu CV y sigue tus procesos de selección.",
+  description: "Pega una oferta, mide tu CV y adáptalo con IA.",
 };
 
 export default function RootLayout({

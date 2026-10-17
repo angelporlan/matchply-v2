@@ -13,13 +13,13 @@ Una etapa, un concepto. No se abre la siguiente si la anterior no se puede expli
 | 2 | Identidad (registro / sesión) | hecha |
 | 3 | CV estructurado + editor | hecha |
 | 4 | Ofertas y estados | hecha |
-| 5 | Motor IA (proveedor + skills + runner) | actual |
-| 6 | Skill `match_offer` | pendiente |
-| 7 | Skill `optimize_cv` | pendiente |
-| 8 | Skill `rewrite_section` | pendiente |
-| 9 | PDF | pendiente |
-| 10 | Stripe + cuota | pendiente |
-| 11 | Lanzar en Vercel | pendiente |
+| 5 | Motor IA (proveedor + skills + runner) | hecha |
+| 6 | Skill `match_offer` | hecha |
+| 7 | Skill `optimize_cv` | hecha |
+| 8 | Skill `rewrite_section` | hecha |
+| 9 | PDF | hecha |
+| 10 | Stripe + cuota | hecha |
+| 11 | Lanzar en Vercel | actual |
 
 ## Producto final v2
 

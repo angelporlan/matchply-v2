@@ -23,4 +23,14 @@ export const env = {
     return required("GEMINI_API_KEY");
   },
   geminiModel: process.env.GEMINI_MODEL ?? "gemini-2.5-flash",
+  appUrl: process.env.APP_URL ?? "http://localhost:3000",
+  get stripeSecretKey() {
+    return required("STRIPE_SECRET_KEY");
+  },
+  get stripeWebhookSecret() {
+    return required("STRIPE_WEBHOOK_SECRET");
+  },
+  get stripePriceId() {
+    return required("STRIPE_PRICE_ID");
+  },
 };

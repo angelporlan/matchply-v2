@@ -19,11 +19,9 @@ Si no puedes explicarla, no entra. Si entra, cabe en la cabeza.
 - IA: un proveedor + skills versionadas + un runner
 - Pago: Stripe, cuando haya cuota que cobrar
 
-## Qué hay ahora (etapa 5)
+## Qué hay ahora (producto v2)
 
-Hay un motor de IA: un cliente HTTP a Gemini, una tabla `skills` y un runner. La skill dummy `echo` prueba el tubo. No hay match ni optimizar todavía.
-
-La clave es `GEMINI_API_KEY` (servidor). Nunca `NEXT_PUBLIC_`.
+Registro, CV JSON, ofertas, match, adaptar, reescribir, PDF y cuota Stripe (free 5 usos/mes, pro vía webhook). Un proveedor: Gemini. Skills en tabla. El runner no “decide”.
 
 | Quieres esto | Está en |
 | --- | --- |
@@ -56,7 +54,7 @@ npm run db:push
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). Crea una cuenta, un CV, una oferta y prueba el tubo en `/ai` (necesitas `GEMINI_API_KEY` de [Google AI Studio](https://aistudio.google.com/apikey)). En el Table Editor: `users`, `sessions`, `cvs`, `job_offers` y `skills`.
+Abre [http://localhost:3000](http://localhost:3000). Flujo: registro → CV → oferta → **Medir encaje** → **Adaptar CV** → PDF. `GEMINI_API_KEY` en [Google AI Studio](https://aistudio.google.com/apikey). Stripe en test mode para el plan pro.
 
 ## Scripts
 

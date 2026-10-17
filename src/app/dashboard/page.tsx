@@ -3,15 +3,25 @@ import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { listCvs } from "@/db/cvs";
 import { getDb } from "@/db";
+import { countRunsThisMonth } from "@/db/runs";
 import { users } from "@/db/schema";
 import { destroySession, requireAuth } from "@/lib/auth";
 import { logout } from "@/lib/auth-actions";
+import { BillingPanel } from "@/components/billing-panel";
 import { createCv, setActiveCv } from "@/lib/cv-actions";
+import { isPro } from "@/lib/quota";
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: { billing?: string; error?: string };
+}) {
   const { userId } = await requireAuth();
   const [user] = await getDb()
-    .select({ email: users.email })
+    .select({
+      email: users.email,
+      subscriptionStatus: users.subscriptionStatus,
+    })
     .from(users)
     .where(eq(users.id, userId))
     .limit(1);
@@ -21,13 +31,15 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const cvList = await listCvs(userId);
+  const [cvList, used] = await Promise.all([
+    listCvs(userId),
+    countRunsThisMonth(userId),
+  ]);
+  const pro = isPro(user.subscriptionStatus);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-16">
-      <p className="text-sm uppercase tracking-[0.2em] text-ink/60">
-        Fase 5 · Motor IA
-      </p>
+      <p className="text-sm uppercase tracking-[0.2em] text-ink/60">Matchply</p>
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-4xl font-semibold tracking-tight">Dashboard</h1>
         <p className="flex flex-wrap gap-x-4 text-sm text-ink/60">
@@ -46,6 +58,13 @@ export default async function DashboardPage() {
           </Link>
         </p>
       </div>
+
+      <BillingPanel
+        pro={pro}
+        used={used}
+        billing={searchParams.billing}
+        stripeError={searchParams.error === "stripe"}
+      />
 
       <section className="flex flex-col gap-4">
         <h2 className="text-lg font-medium">Tus CVs</h2>
@@ -70,18 +89,29 @@ export default async function DashboardPage() {
                       Activo
                     </span>
                   ) : null}
+                  {cv.sourceCvId ? (
+                    <span className="ml-2 text-xs text-ink/50">adaptado</span>
+                  ) : null}
                 </div>
-                {cv.isActive ? null : (
-                  <form action={setActiveCv}>
-                    <input type="hidden" name="cvId" value={cv.id} />
-                    <button
-                      type="submit"
-                      className="text-sm underline decoration-ink/30 underline-offset-4"
-                    >
-                      Activar
-                    </button>
-                  </form>
-                )}
+                <p className="flex gap-3 text-sm">
+                  <a
+                    href={`/api/cvs/${cv.id}/pdf`}
+                    className="underline decoration-ink/30 underline-offset-4"
+                  >
+                    PDF
+                  </a>
+                  {cv.isActive ? null : (
+                    <form action={setActiveCv}>
+                      <input type="hidden" name="cvId" value={cv.id} />
+                      <button
+                        type="submit"
+                        className="underline decoration-ink/30 underline-offset-4"
+                      >
+                        Activar
+                      </button>
+                    </form>
+                  )}
+                </p>
               </li>
             ))}
           </ul>

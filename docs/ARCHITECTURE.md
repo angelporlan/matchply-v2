@@ -15,22 +15,20 @@
 
 Si una pieza no está en esta tabla, no entra hasta el producto final.
 
-## Fase 5 (hoy)
+## Fase 11 (hoy)
 
 ```text
-navegador  POST /ai  (skill echo)
-    → runner
-         1. carga skill (tabla skills)
-         2. monta system + userTemplate
-         3. provider HTTP → generativelanguage.googleapis.com
-         4. parsea JSON
-         5. valida skill.output
-    → { echo: "…" }  o  "basura"
+registro → CV JSON → oferta
+  → match_offer (score, gaps, evidence) se guarda en la oferta
+  → optimize_cv propone; el usuario aplica secciones a un CV nuevo
+  → rewrite_section en el editor (misma runner)
+  → GET /api/cvs/:id/pdf
+  → cuota: ai_runs este mes; webhook Stripe → subscriptionStatus
 ```
 
-La clave es `GEMINI_API_KEY` en el servidor. Un proveedor. Añadir `match_offer` no toca el cliente HTTP.
+La clave es `GEMINI_API_KEY` en el servidor. Un proveedor. Las skills `match_offer`, `optimize_cv` y `rewrite_section` son filas. El PDF se genera en el servidor. Stripe escribe `subscriptionStatus` por webhook. El runner mira la cuota antes de llamar al modelo.
 
-## Destino (etapas 6–11)
+## Destino (producto)
 
 ```text
 navegador

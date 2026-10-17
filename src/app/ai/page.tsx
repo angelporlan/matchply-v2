@@ -6,6 +6,7 @@ import { requireAuth } from "@/lib/auth";
 const ERRORS: Record<string, string> = {
   invalid: "Escribe un texto de como máximo 500 caracteres.",
   key: "Falta GEMINI_API_KEY en el servidor. No viaja al navegador.",
+  quota: "Cuota gratis agotada este mes.",
   provider: "El proveedor no respondió. Revisa la clave y el modelo.",
   basura: "El modelo devolvió basura: no era JSON con { echo: string }.",
   missing: "No está la skill echo. Recarga la página.",

@@ -9,6 +9,8 @@ export async function listCvs(userId: string) {
       id: cvs.id,
       title: cvs.title,
       isActive: cvs.isActive,
+      offerId: cvs.offerId,
+      sourceCvId: cvs.sourceCvId,
       updatedAt: cvs.updatedAt,
     })
     .from(cvs)
@@ -30,6 +32,8 @@ export async function insertCv(input: {
   title: string;
   data: CvData;
   isActive: boolean;
+  sourceCvId?: string | null;
+  offerId?: string | null;
 }) {
   const [row] = await getDb()
     .insert(cvs)

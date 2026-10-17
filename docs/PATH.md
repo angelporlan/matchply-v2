@@ -16,13 +16,13 @@ No entra en esa versión: STAR, extensión de Chrome, MCP, research profundo, in
 2  Identidad         registro / login / sesión      ✓ hecha
 3  CV                modelo JSON + editor simple    ✓ hecha
 4  Ofertas           pegar oferta + estados         ✓ hecha
-5  Motor IA          1 proveedor + tabla skills + runner  actual
-6  Skill match       puntuar CV contra oferta
-7  Skill optimize    adaptar CV a la oferta
-8  Skill rewrite     reescribir una sección
-9  PDF               descargar el CV
-10 Cobro             Stripe + cuota
-11 Lanzar            Vercel prod + dominio + pulido
+5  Motor IA          1 proveedor + tabla skills + runner  ✓ hecha
+6  Skill match       puntuar CV contra oferta             ✓ hecha
+7  Skill optimize    adaptar CV a la oferta               ✓ hecha
+8  Skill rewrite     reescribir una sección               ✓ hecha
+9  PDF               descargar el CV                      ✓ hecha
+10 Cobro             Stripe + cuota                       ✓ hecha
+11 Lanzar            Vercel prod + dominio + pulido       actual
 ```
 
 Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explicas sin abrir el código) y qué queda fuera.
@@ -89,7 +89,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 5 — Motor de IA (sin features de producto) (actual)
+## Etapa 5 — Motor de IA (sin features de producto) (hecha)
 
 **Construyes:** un cliente HTTP a un solo proveedor. Tabla `skills` (id, version, system, userTemplate, output). Un runner: valida input → monta mensajes → llama → parsea → valida salida. Seed de una skill dummy (`echo`) para probar el tubo.
 
@@ -101,7 +101,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 6 — Skill `match_offer`
+## Etapa 6 — Skill `match_offer` (hecha)
 
 **Construyes:** un botón en la oferta. Entrada: CV JSON + texto de la oferta. Salida: score 0–100, lagunas, evidencias. Se guarda en la oferta.
 
@@ -113,7 +113,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 7 — Skill `optimize_cv`
+## Etapa 7 — Skill `optimize_cv` (hecha)
 
 **Construyes:** a partir del match (o de la oferta), la IA propone un CV adaptado. El usuario ve el antes/después y acepta o descarta por sección. Se guarda como versión nueva, no se pisa el CV base.
 
@@ -125,7 +125,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 8 — Skill `rewrite_section`
+## Etapa 8 — Skill `rewrite_section` (hecha)
 
 **Construyes:** en el editor, “reescribe este bullet / esta experiencia para esta oferta”. Reutiliza el runner. Es la tercera skill, no un segundo servicio.
 
@@ -137,7 +137,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 9 — PDF
+## Etapa 9 — PDF (hecha)
 
 **Construyes:** un GET autenticado que serializa el CV JSON a PDF y lo descarga.
 
@@ -149,7 +149,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 10 — Cobro
+## Etapa 10 — Cobro (hecha)
 
 **Construyes:** plan free (N matches / optimizaciones al mes) y plan pro. Stripe Checkout + webhook que escribe `subscriptionStatus`. El runner consulta la cuota antes de llamar al modelo.
 
@@ -161,7 +161,7 @@ Cada etapa tiene: qué construyes, qué aprendes, criterio de cierre (lo explica
 
 ---
 
-## Etapa 11 — Lanzar
+## Etapa 11 — Lanzar (actual)
 
 **Construyes:** proyecto en Vercel unido al repo. Env de producción (`DATABASE_URL`, `AUTH_SECRET`, clave IA, Stripe live cuando toque). Dominio. Landing con una frase clara. Privacy / terms mínimos.
 

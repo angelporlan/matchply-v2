@@ -68,3 +68,41 @@ export async function linkOwnedOfferCv(input: {
     .returning({ id: jobOffers.id });
   return row ?? null;
 }
+
+export async function saveOfferMatch(input: {
+  id: string;
+  userId: string;
+  score: number;
+  gaps: string[];
+  evidence: string[];
+}) {
+  const [row] = await getDb()
+    .update(jobOffers)
+    .set({
+      matchScore: input.score,
+      matchGaps: input.gaps,
+      matchEvidence: input.evidence,
+      matchedAt: new Date(),
+      updatedAt: new Date(),
+    })
+    .where(and(eq(jobOffers.id, input.id), eq(jobOffers.userId, input.userId)))
+    .returning({ id: jobOffers.id });
+  return row ?? null;
+}
+
+export async function saveOfferProposal(input: {
+  id: string;
+  userId: string;
+  proposal: unknown;
+}) {
+  const [row] = await getDb()
+    .update(jobOffers)
+    .set({
+      proposal: input.proposal,
+      proposalAt: new Date(),
+      updatedAt: new Date(),
+    })
+    .where(and(eq(jobOffers.id, input.id), eq(jobOffers.userId, input.userId)))
+    .returning({ id: jobOffers.id });
+  return row ?? null;
+}

@@ -1,15 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { OfferMatch } from "@/components/offer-match";
 import { OfferStatusButtons } from "@/components/offer-status-buttons";
 import { listCvs } from "@/db/cvs";
 import { getOwnedOffer } from "@/db/offers";
 import { requireAuth } from "@/lib/auth";
+import { asStoredStringList } from "@/lib/match-parse";
 import { linkOfferCv } from "@/lib/offer-actions";
 import { OFFER_STATUS_LABELS } from "@/lib/offer";
 
 const ERRORS: Record<string, string> = {
   transition: "Ese salto de estado no está permitido.",
-  cv: "Ese CV no es tuyo.",
+  cv: "Enlaza un CV tuyo antes.",
+  quota: "Cuota gratis agotada este mes.",
+  basura: "El modelo no devolvió un match válido.",
+  key: "Falta GEMINI_API_KEY en el servidor.",
+  provider: "Gemini no respondió.",
 };
 
 export default async function OfferPage({
@@ -36,7 +42,7 @@ export default async function OfferPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-16">
       <p className="text-sm uppercase tracking-[0.2em] text-ink/60">
-        Fase 4 · Ofertas
+        Matchply
       </p>
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-4xl font-semibold tracking-tight">{offer.title}</h1>
@@ -67,6 +73,14 @@ export default async function OfferPage({
         <h2 className="text-sm font-medium">Siguiente estado</h2>
         <OfferStatusButtons offerId={offer.id} status={offer.status} />
       </section>
+      <OfferMatch
+        offerId={offer.id}
+        hasCv={Boolean(linked)}
+        score={offer.matchScore}
+        gaps={asStoredStringList(offer.matchGaps)}
+        evidence={asStoredStringList(offer.matchEvidence)}
+        hasProposal={Boolean(offer.proposal)}
+      />
       <section className="flex flex-col gap-3">
         <h2 className="text-sm font-medium">CV enlazado</h2>
         <p className="text-sm text-ink/70">

@@ -253,3 +253,31 @@ Es el mensaje `role: system` de la skill. Dice el formato. El `userTemplate` int
 5. ¿Qué queda fuera (LangChain, varios proveedores, embeddings, optimizar CVs)?
 
 Cuando las respondas en voz alta, sin mirar, Fase 5 está cerrada.
+
+## Fases 6–10 — lo mínimo de memoria
+
+### Match (`match_offer`)
+
+El modelo propone `score`, `gaps`, `evidence`. Tu código recorta el score a 0–100 y limita las listas. Eso es lo que se guarda en `job_offers`.
+
+### Optimize
+
+El modelo no hace UPDATE. Escribe una propuesta JSON. Tú eliges secciones y se inserta un CV nuevo (`source_cv_id`). El base no se pisa.
+
+### Rewrite
+
+Tercera skill. El runner no cambia. En el editor, reescribe una experiencia para una oferta y tú pulsas Guardar.
+
+### PDF
+
+`GET /api/cvs/:id/pdf` en el servidor: cookie → `auth()` → ownership → serializa JSON → bytes PDF. No se genera en el navegador.
+
+### Stripe
+
+Checkout no es la fuente de verdad. El webhook `checkout.session.completed` escribe `subscriptionStatus = pro`. El runner cuenta `ai_runs` del mes y, si eres free y ya usaste 5, no llama al modelo.
+
+## Fase 11
+
+Preview ≠ production. `GEMINI_API_KEY`, `DATABASE_URL` y Stripe no llevan `NEXT_PUBLIC_`.
+
+Cuando las respondas en voz alta, sin mirar, el producto v2 está cerrado.
